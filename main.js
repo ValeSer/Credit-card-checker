@@ -40,9 +40,7 @@ const validateCred = (array) => {
   console.log(validateCred(valid1));
   console.log(validateCred(invalid1));
 
-  const findInvalidCards = (nestedArray) => {
-    return nestedArray.filter(el => !validateCred(el))
-  }
+  const findInvalidCards = (nestedArray) => nestedArray.filter(el => !validateCred(el))
   
   console.log(findInvalidCards(batch));
   
