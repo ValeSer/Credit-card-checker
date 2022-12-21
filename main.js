@@ -41,13 +41,7 @@ const validateCred = (array) => {
   console.log(validateCred(invalid1));
 
   const findInvalidCards = (nestedArray) => {
-    let invalidCards = []
-    nestedArray.forEach(el => {
-       if(!validateCred(el)) {
-         invalidCards.push(el);
-       }
-    })
-    return invalidCards;
+    return nestedArray.filter(el => !validateCred(el))
   }
   
   console.log(findInvalidCards(batch));
