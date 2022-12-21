@@ -25,42 +25,40 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 // Add your functions below:
 const validateCred = (array) => {
-    let k = 0
-    for(let i = array.length-2; i >= 0; i-= 2) {
-      let value = array[i] * 2 
-      value =  value > 9 ? value - 9 : value
-      k = value + k;
-    }
-    for(let i = array.length -1; i >= 0; i-= 2) {
-      k = array[i] + k; 
-    }
-    return k % 10 === 0
+  let k = 0
+  for(let i = array.length-2; i >= 0; i-= 2) {
+    let value = array[i] * 2 
+    value =  value > 9 ? value - 9 : value
+    k = value + k;
   }
-  
-  console.log(validateCred(valid1));
-  console.log(validateCred(invalid1));
-
-  const findInvalidCards = (nestedArray) => nestedArray.filter(el => !validateCred(el))
-  
-  console.log(findInvalidCards(batch));
-  
-  const idInvalidCardCompanies = (nestedArray) => {
-    let companies = []
-    let invalids = findInvalidCards(nestedArray)
-    invalids.forEach(el => {
-      if (el[0] === 3 && !companies.includes('Amex')) { companies.push('Amex');
-      } else if (el[0] === 4 && !companies.includes('Visa')) {companies.push('Visa')
-      } else if (el[0] === 5 && !companies.includes('Mastercard')) {companies.push('Mastercard')
-      } else if (el[0] === 6 && !companies.includes('Discover')) {companies.push('Discover');
-      } else { console.log('Company not found')};
-    })
-    return companies
+  for(let i = array.length -1; i >= 0; i-= 2) {
+    k = array[i] + k; 
   }
-  
-  console.log(idInvalidCardCompanies(batch));
+  return k % 10 === 0
+}
+
+//console.log(validateCred(valid1));
+//console.log(validateCred(invalid1));
 
 
+const findInvalidCards = (nestedArray) => nestedArray.filter(el => !validateCred(el))
 
+const companyFirstDigitCheck = [
+  {digit: 3, company: 'Amex (American Express)'},
+  {digit: 4, company: 'Visa'},
+  {digit: 5, company: 'Mastercard'},
+  {digit: 6, company: 'Discover'}
+]
 
+const idInvalidCardCompanies = (nestedArray) => {
+  let companies = []
+  let invalids = findInvalidCards(nestedArray)
+  invalids.forEach(el => {
+    let company = companyFirstDigitCheck.find(d => d.digit === el[0]);
+    if (!company) { console.log('Company not found');
+    } else if (!companies.includes(company.company)) { companies.push(company.company)}
+  });
+  return companies
+}
 
-
+console.log(idInvalidCardCompanies(batch));
