@@ -61,4 +61,10 @@ const idInvalidCardCompanies = (nestedArray) => {
   return companies
 }
 
+
+const TestCreditCard = (string) => {
+    return string.split('').map(el => parseInt(el));
+  }
+
+  
 console.log(idInvalidCardCompanies(batch));
